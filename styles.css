@@ -1,0 +1,33 @@
+* {
+  color: white;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+}
+
+body {
+  background-color: rgb(58, 59, 59);
+}
+.title-container {
+  text-align: center;
+  width: 500px;
+  border-bottom: solid 1px #da3a0a;
+}
+.game-container {
+  height: 90vh; /* doesnt work without height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tiles{
+    width:330px;
+    margin-bottom: 30px;
+
+}
+.keyboard{
+    width: 500px;
+    display:flex;
+    flex-wrap:wrap;
+
+}
