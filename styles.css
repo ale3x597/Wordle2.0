@@ -26,8 +26,27 @@ body {
 
 }
 .keyboard{
-    width: 500px;
+    width: 510px;
     display:flex;
     flex-wrap:wrap;
+
+}
+.keyboard button {
+    color: white;
+    background-color: #818384;
+    border: none;
+    border-radius: 4px;
+    width: 43px;
+    height: 58px;
+    margin: 4px;
+}
+.keyboard button:nth-child(20){
+    width: 70px;
+}
+.keyboard button:nth-child(28){
+    width:65px;
+}
+.keyboard button:nth-child(11){
+    margin-left:30px;
 
 }

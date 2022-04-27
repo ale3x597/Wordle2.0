@@ -41,3 +41,24 @@ keys.forEach((key) => {
   button.addEventListener("click", handleClick);
   keyboard.append(button);
 });
+
+const rows=[
+    ['','','','',''],
+    ['','','','',''],
+    ['','','','',''],
+    ['','','','',''],
+    ['','','','',''],
+    ['','','','','']
+]
+rows.forEach((tile, rowIndex) =>{
+    const rowElement =document.createElement('div');
+    rowElement.setAttribute('id','row-'+ rowIndex);
+    tile.forEach((guess,guessIndex)=>{
+        const tileElement = document.createElement('div');
+        tileElement.setAttribute('id','row-'+ rowIndex +'-tile-'+guessIndex);
+        rowElement.append(tileElement);
+    })
+
+
+    tiles.append(rowElement)
+})
