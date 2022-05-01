@@ -1,6 +1,8 @@
 const tiles = document.querySelector(".tiles");
 const keyboard = document.querySelector(".keyboard");
+const messDisplay = document.querySelector(".message");
 const word = "TEARS";
+let gameOver=false;
 
 const keys = [
   "Q",
@@ -43,13 +45,14 @@ keys.forEach((key) => {
 });
 
 const rows = [
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-  ["", "", ""],
-];
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+    ["", "", "", "", ""],
+  ];
+  
 // 2 loops, firsg creates a div for each row, second creates a id for each tile
 rows.forEach((row, rowIndex) => {
   const rowElement = document.createElement("div");
@@ -84,7 +87,7 @@ let currentTile = 0;
 let currentRow = 0;
 //finds tile needed to add letter
 const letters = (key) => {
-  if (currentTile < 3 && currentRow < 6) {
+  if (currentTile < 5 && currentRow < 6) {
     const tile = document.getElementById(
       "row-" + currentRow + "-tile-" + currentTile
     );
@@ -108,15 +111,56 @@ const letterDelete =() =>{
 
 const guessCheck =() =>{
     const guess=  rows[currentRow].join('');
-    if (currentTile===5){
+    if (currentTile>4){
         console.log('my guess : '+ guess, ' word is '+ word);
+        flip()
         if(word == guess){
             showMessage('awesome!');
+            gameOver=true;
+            return;
+        } else {
+            if (currentRow>=5){
+                gameOver=true;
+                showMessage('Game Over!');  //if on last row and click enter, game over;
+                return;
+            }
+            //if on last tile, goes to next row and sets tile back to 0
+            if(currentRow<5){
+                currentRow++;
+                currentTile=0;
+                return;
+            }
+
         }
 
     }
 }
-
+// creates p element inside message class and displays message
 const showMessage = (message)=>{
-   const messageElement= document.createElement('p')
+   const messageElement= document.createElement('p');
+   messageElement.textContent= message;
+   messDisplay.append(messageElement);
+   setTimeout(()=> messDisplay.removeChild(messageElement),2000);
+
+}
+addKeyColor = (tileLetter, color) => {
+    const usedKey = getElementById()
+}
+const flip =()=>{
+    const finalTiles=document.querySelector('#row-'+currentRow).childNodes;
+    finalTiles.forEach ((tile, index)=>{
+        const submittedTile = tile.getAttribute('data');
+
+       setTimeout (()=>{
+           tile.classList.add('flip')
+        if(submittedTile==word[index]){
+            tile.classList.add('correct-guess');
+            addKeyColor(submittedTile, 'correct-guess')
+        } else if (word.includes(submittedTile)){
+            tile.classList.add('close-guess');
+        }else {
+            tile.classList.add('null-guess');
+        }
+       },500 *index)
+    })
 }

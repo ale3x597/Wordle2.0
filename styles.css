@@ -5,29 +5,80 @@
 }
 
 body {
-  background-color: rgb(58, 59, 59);
-}
-.title-container {
-  text-align: center;
-  width: 500px;
-  border-bottom: solid 1px #da3a0a;
-}
-.message {
-    height: 30px;
+  background-color: rgb(5, 5, 5);
 }
 .game-container {
-  height: 90vh; /* doesnt work without height */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+    height: 90vh; /* doesnt work without height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+/*Title Section*/
+.title-container {
+  text-align: center;
+  width: 510px;
+  border-bottom: solid 1px #da3a0a;
 }
+/*message Section*/
+.message {
+    height: 50px;
+}
+.message p {
+    background-color:#818384;
+    border-radius: 10px;
+    padding:10px;
+    margin:0px;
 
+}
+/* tiles section*/
 .tiles{
     width:330px;
     margin-bottom: 30px;
 
 }
+/* fixes all of the blocks stacking up*/
+.tiles div{
+    display:flex;
+}
+.tiles .tile{
+    width:62px;
+    height:62px;
+    border:2px solid rgb(187, 82, 21);
+    box-sizing:border-box;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:2px;
+
+}
+.tile.flip{
+    animation: 0.5s linear flipping;
+}
+@keyframes flipping {
+    0% {
+        transform: rotateX(0deg);
+    }
+    50% {
+        transform: rotateX(90deg);
+    }
+    100% {
+        transform: rotateX(0deg);
+    }
+}
+.null-guess{
+    background-color:#3a3a3c !important;
+    border:none !important;
+}
+.close-guess{
+    background-color: #b59f3a !important;
+    border: none !important;
+}
+.correct-guess{
+    background-color:#538d4e !important;/* needed to override, order important*/ 
+    border:none !important;
+}
+/*Keyboard section*/
 .keyboard{
     width: 510px;
     display:flex;
@@ -51,20 +102,5 @@ body {
 }
 .keyboard button:nth-child(11){
     margin-left:30px;
-
-}
-/* fixes all of the blocks stacking up*/
-.tiles div{
-    display:flex;
-}
-.tiles .tile{
-    width:62px;
-    height:62px;
-    border:2px solid rgb(187, 82, 21);
-    box-sizing:border-box;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:2px;
 
 }
