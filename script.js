@@ -143,24 +143,55 @@ const showMessage = (message)=>{
    setTimeout(()=> messDisplay.removeChild(messageElement),2000);
 
 }
-addKeyColor = (tileLetter, color) => {
-    const usedKey = getElementById()
+const addKeyColor =(keyLetter, color) =>{
+    const usedKey = document.getElementById(keyLetter);
+    usedKey.classList.add(color);
 }
 const flip =()=>{
     const finalTiles=document.querySelector('#row-'+currentRow).childNodes;
-    finalTiles.forEach ((tile, index)=>{
+    const checkWord = word;
+    const guess = [];
+
+    finalTiles.forEach(tile =>{
+        guess.push({key: tile.getAttribute('data'), color: 'null-overlay'})
+    })
+    guess.forEach((guess, index) => {
+            if (guess.key == word[index]){
+                guess.color = 'correct-guess';
+                checkWord = checkWord.replace(guess.key,'');
+            }
+     })
+    guess.forEach(guess =>{
+        if (checkWord.includes(guess.key)) {
+            guess.color = 'close-guess';
+            checkWord=checkWord.replace(guess.key,'');
+        }
+    })
+    
+    finalTiles.forEach ((tile, index) =>{
+        setTimeout(() => {
+            tile.classList.add('flip')
+            tile.classList.add(guess[index].color)
+            addKeyColor(guess[index].letter, guess[index].color )
+        }, 500 *index)
+    })
+}
+
+  /*  finalTiles.forEach ((tile, index)=>{
         const submittedTile = tile.getAttribute('data');
 
        setTimeout (()=>{
            tile.classList.add('flip')
         if(submittedTile==word[index]){
             tile.classList.add('correct-guess');
-            addKeyColor(submittedTile, 'correct-guess')
+            addKeyColor(submittedTile, 'correct-guess');
         } else if (word.includes(submittedTile)){
             tile.classList.add('close-guess');
+            addKeyColor(submittedTile, 'close-guess');
         }else {
             tile.classList.add('null-guess');
+            addKeyColor(submittedTile, 'null-guess');
         }
        },500 *index)
-    })
-}
+    })*/
+
