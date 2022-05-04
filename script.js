@@ -1,9 +1,21 @@
 const tiles = document.querySelector(".tiles");
 const keyboard = document.querySelector(".keyboard");
 const messDisplay = document.querySelector(".message");
-const word = "TEARS";
-let gameOver=false;
 
+let gameOver=false;
+let  word;
+
+const getWord =()=>{
+  fetch('http://localhost:8000/word')
+    .then(response => response.json())
+    .then(json=>{
+      console.log(json)
+      word = json.toUpperCase()
+    })
+    .catch( error=> console.log(error))
+}
+
+getWord();
 const keys = [
   "Q",
   "W",
@@ -149,30 +161,32 @@ const addKeyColor =(keyLetter, color) =>{
 }
 const flip =()=>{
     const finalTiles=document.querySelector('#row-'+currentRow).childNodes;
-    const checkWord = word;
+    let checkWord = word;
     const guess = [];
 
     finalTiles.forEach(tile =>{
-        guess.push({key: tile.getAttribute('data'), color: 'null-overlay'})
+        guess.push({letter: tile.getAttribute('data'), color: 'null-guess'})
     })
-    guess.forEach((guess, index) => {
-            if (guess.key == word[index]){
-                guess.color = 'correct-guess';
-                checkWord = checkWord.replace(guess.key,'');
-            }
-     })
-    guess.forEach(guess =>{
-        if (checkWord.includes(guess.key)) {
-            guess.color = 'close-guess';
-            checkWord=checkWord.replace(guess.key,'');
+
+    guess.forEach((guess,index)=>{
+        if (guess.letter == word[index]){
+            guess.color = 'correct-guess';
+            checkWord = checkWord.replace(guess.letter, '');
         }
     })
-    
-    finalTiles.forEach ((tile, index) =>{
+    guess.forEach( guess =>{
+        if(checkWord.includes(guess.letter)){
+            guess.color = 'close-guess';
+            checkWord = checkWord.replace(guess.letter, '');
+        }
+    })
+
+    finalTiles.forEach((tile, index) =>{
         setTimeout(() => {
-            tile.classList.add('flip')
-            tile.classList.add(guess[index].color)
-            addKeyColor(guess[index].letter, guess[index].color )
+            tile.classList.add('flip');
+            tile.classList.add(guess[index].color);
+            addKeyColor(guess[index].letter, guess[index].color);
+            
         }, 500 *index)
     })
 }
