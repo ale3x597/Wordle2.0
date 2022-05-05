@@ -123,27 +123,43 @@ const letterDelete =() =>{
 
 const guessCheck =() =>{
     const guess=  rows[currentRow].join('');
-    if (currentTile>4){
-        console.log('my guess : '+ guess, ' word is '+ word);
-        flip()
-        if(word == guess){
-            showMessage('awesome!');
-            gameOver=true;
-            return;
-        } else {
-            if (currentRow>=5){
-                gameOver=true;
-                showMessage('Game Over!');  //if on last row and click enter, game over;
-                return;
-            }
-            //if on last tile, goes to next row and sets tile back to 0
-            if(currentRow<5){
-                currentRow++;
-                currentTile=0;
-                return;
-            }
+    console.log('guess', guess);
 
-        }
+    if (currentTile>4){
+      fetch(`http://localhost:8000/check/?word=${guess}`)
+        .then(response => response.json())
+        .then(json => {
+          console.log(json)
+          if (json == 'Entry word not found'){
+            showMessage('Word not Found')
+            return;
+          }else {
+            console.log('my guess : '+ guess);
+            flip()
+            if(word == guess){
+                showMessage('awesome!');
+                gameOver=true;
+                return;
+            } else {
+                if (currentRow>=5){
+                    gameOver=true;
+                    showMessage('Game Over!');  //if on last row and click enter, game over;
+                    return;
+                }
+                //if on last tile, goes to next row and sets tile back to 0
+                if(currentRow<5){
+                    currentRow++;
+                    currentTile=0;
+                    return;
+                }
+    
+            }
+          }
+        
+
+        }).catch(error => console.log(error))
+
+      
 
     }
 }
@@ -190,7 +206,8 @@ const flip =()=>{
         }, 500 *index)
     })
 }
-
+// the code below was the original solution to the method above , its issue was that the same letters would be marked 
+// yellow even if it had already been used in the correct spot.
   /*  finalTiles.forEach ((tile, index)=>{
         const submittedTile = tile.getAttribute('data');
 
