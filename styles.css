@@ -17,9 +17,17 @@ body {
 /*Title Section*/
 .title-container {
   text-align: center;
-  width: 510px;
-  border-bottom: solid 1px #da3a0a; 
-  animation: 6s linear colors;
+  width: 100%;
+  border-bottom: solid 1px #1fe2f4; 
+  animation:  6s cubic-bezier(0.45, 0.05, 0.55, 0.95) colors;
+  
+}
+.title-container h1 {
+    background: linear-gradient(90deg, #00dbde,#fc00fc);
+    font-size:40px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
 }
 
 /*message Section*/
@@ -36,10 +44,11 @@ body {
     animation-timing-function: ease-out;
 }
 @keyframes colors{
-    0%   {background-color: red};
+    0%   {background-color: black};
+    15% {background-color: red}
   25%  {background-color: yellow;}
   50%  {background-color: blue;}
-  75% {background-color:green}
+  75% {background-color:rgb(1, 174, 1)}
   100% {background-color: black;}
 }
 /* tiles section*/
@@ -56,7 +65,7 @@ body {
 .tiles .tile{
     width:62px;
     height:62px;
-    border:2px solid rgb(187, 82, 21);
+    border:2px solid rgb(46, 21, 236);
     box-sizing:border-box;
     display:flex;
     justify-content:center;
