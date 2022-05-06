@@ -18,28 +18,40 @@ body {
 .title-container {
   text-align: center;
   width: 510px;
-  border-bottom: solid 1px #da3a0a;
+  border-bottom: solid 1px #da3a0a; 
+  animation: 6s linear colors;
 }
+
 /*message Section*/
 .message {
     height: 50px;
 }
 .message p {
-    background-color:#818384;
-    border-radius: 10px;
+    background-color:#1cc22d;
+    border-radius: 20px;
     padding:10px;
     margin:0px;
-
+    animation: 5s colors;
+    animation-iteration-count: 5;
+    animation-timing-function: ease-out;
+}
+@keyframes colors{
+    0%   {background-color: red};
+  25%  {background-color: yellow;}
+  50%  {background-color: blue;}
+  75% {background-color:green}
+  100% {background-color: black;}
 }
 /* tiles section*/
 .tiles{
     width:330px;
     margin-bottom: 30px;
-
+    
 }
 /* fixes all of the blocks stacking up*/
 .tiles div{
     display:flex;
+    justify-content: center;
 }
 .tiles .tile{
     width:62px;

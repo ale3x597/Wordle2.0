@@ -3,6 +3,7 @@ const keyboard = document.querySelector(".keyboard");
 const messDisplay = document.querySelector(".message");
 
 let gameOver=false;
+
 let  word;
 
 const getWord =()=>{
@@ -14,6 +15,7 @@ const getWord =()=>{
     })
     .catch( error=> console.log(error))
 }
+
 
 getWord();
 const keys = [
@@ -57,12 +59,12 @@ keys.forEach((key) => {
 });
 
 const rows = [
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
-    ["", "", "", "", ""],
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""],
+  ["", "", ""],
   ];
   
 // 2 loops, firsg creates a div for each row, second creates a id for each tile
@@ -99,7 +101,7 @@ let currentTile = 0;
 let currentRow = 0;
 //finds tile needed to add letter
 const letters = (key) => {
-  if (currentTile < 5 && currentRow < 6) {
+  if (currentTile < 3 && currentRow < 6) {
     const tile = document.getElementById(
       "row-" + currentRow + "-tile-" + currentTile
     );
@@ -125,7 +127,7 @@ const guessCheck =() =>{
     const guess=  rows[currentRow].join('');
     console.log('guess', guess);
 
-    if (currentTile>4){
+    if (currentTile>2){
       fetch(`http://localhost:8000/check/?word=${guess}`)
         .then(response => response.json())
         .then(json => {
@@ -136,14 +138,18 @@ const guessCheck =() =>{
           }else {
             console.log('my guess : '+ guess);
             flip()
+            
             if(word == guess){
                 showMessage('awesome!');
                 gameOver=true;
+                correct();
+                playAgain();
                 return;
             } else {
                 if (currentRow>=5){
                     gameOver=true;
                     showMessage('Game Over!');  //if on last row and click enter, game over;
+                    playAgain();
                     return;
                 }
                 //if on last tile, goes to next row and sets tile back to 0
@@ -162,6 +168,19 @@ const guessCheck =() =>{
       
 
     }
+}
+
+const playAgain=()=>{
+  setTimeout(()=>{
+    let play = confirm('Would You Like to Play again?');
+    if (play== true){
+      location.reload();
+    }
+    else{
+      showMessage('Thank You for Playing');
+    }
+}, 5000)
+  
 }
 // creates p element inside message class and displays message
 const showMessage = (message)=>{
